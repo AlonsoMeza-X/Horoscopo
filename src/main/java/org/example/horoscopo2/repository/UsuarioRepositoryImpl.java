@@ -54,7 +54,7 @@ public class UsuarioRepositoryImpl implements UsuarioRepository {
                         rs.getString("nombre"),
                         rs.getString("username"),
                         rs.getString("email"),
-                        rs.getDate("fechaNacimiento"),
+                        rs.getDate("fecha_nacimiento"),
                         rs.getString("password"),
                         rs.getInt("animal")
                 ));
@@ -81,7 +81,7 @@ public class UsuarioRepositoryImpl implements UsuarioRepository {
                         rs.getString("nombre"),
                         rs.getString("username"),
                         rs.getString("email"),
-                        rs.getDate("fechaNacimiento"),
+                        rs.getDate("fecha_nacimiento"),
                         rs.getString("password"),
                         rs.getInt("animal")));
             }
@@ -105,7 +105,7 @@ public class UsuarioRepositoryImpl implements UsuarioRepository {
                         rs.getString("nombre"),
                         rs.getString("username"),
                         rs.getString("email"),
-                        rs.getDate("fechaNacimiento"),
+                        rs.getDate("fecha_nacimiento"),
                         rs.getString("password"),
                         rs.getInt("animal")));
             }
