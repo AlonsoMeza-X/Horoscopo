@@ -52,7 +52,7 @@ public class HoroscopoRepositoryImpl implements HoroscopoRepository {
                 throw new IllegalArgumentException("La fecha de nacimiento no puede ser nula");
             }
 
-            stmt.setTimestamp(1, Timestamp.valueOf(String.valueOf(fechaNacimiento)));
+            stmt.setDate(1, java.sql.Date.valueOf(String.valueOf(fechaNacimiento)));
 
             try (ResultSet rs = stmt.executeQuery()) {
                 if (rs.next()) {

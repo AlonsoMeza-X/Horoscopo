@@ -4,8 +4,6 @@ import org.example.horoscopo2.dto.UsuarioCreateDto;
 import org.example.horoscopo2.dto.UsuarioResponseDto;
 import org.example.horoscopo2.model.Usuario;
 
-import java.sql.Timestamp;
-
 public class UsaurioMapper {
 
     public static UsuarioResponseDto tDto(Usuario usuario) {
@@ -24,10 +22,9 @@ public class UsaurioMapper {
                 dto.getNombre(),
                 dto.getUsername(),
                 dto.getEmail(),
-                (Timestamp) dto.getFechaNacimiento(),
+                dto.getFechaNacimiento(),
                 dto.getPassword(),
                 dto.getAnimal()
         );
     }
-
 }

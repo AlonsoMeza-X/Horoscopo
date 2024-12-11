@@ -1,18 +1,17 @@
 package org.example.horoscopo2.dto;
 
-import java.sql.Timestamp;
-import java.util.Date;
+import java.sql.Date;
 
 public class UsuarioCreateDto {
     private int id;
     private String nombre;
     private String username;
     private String email;
-    private Timestamp fechaNacimiento;
+    private Date fechaNacimiento;
     private String password;
     private int animal;
 
-    public UsuarioCreateDto(String nombre, String username, String email, Timestamp fechaNacimiento, String password, int animal) {
+    public UsuarioCreateDto(String nombre, String username, String email, Date fechaNacimiento, String password, int animal) {
         this.nombre = nombre;
         this.username = username;
         this.email = email;
@@ -21,7 +20,7 @@ public class UsuarioCreateDto {
         this.animal = animal;
     }
 
-    public UsuarioCreateDto(int id, String nombre, String username, String email, Timestamp fechaNacimiento, String password, int animal) {
+    public UsuarioCreateDto(int id, String nombre, String username, String email, Date fechaNacimiento, String password, int animal) {
         this.id = id;
         this.nombre = nombre;
         this.username = username;
@@ -67,7 +66,7 @@ public class UsuarioCreateDto {
         return fechaNacimiento;
     }
 
-    public void setFechaNacimiento(Timestamp fechaNacimiento) {
+    public void setFechaNacimiento(Date fechaNacimiento) {
         this.fechaNacimiento = fechaNacimiento;
     }
 

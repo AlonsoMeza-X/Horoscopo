@@ -1,6 +1,6 @@
 package org.example.horoscopo2.dto;
 
-import java.util.Date;
+import java.sql.Date;
 
 public class UsuarioResponseDto {
 

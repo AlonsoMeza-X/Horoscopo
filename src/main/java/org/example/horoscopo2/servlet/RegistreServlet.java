@@ -9,10 +9,9 @@ import org.example.horoscopo2.dto.UsuarioCreateDto;
 import org.example.horoscopo2.service.UsuarioServiceImpl;
 
 import java.io.IOException;
-import java.sql.Timestamp;
-import java.util.Date;
+import java.sql.Date;
 
-@WebServlet(name ="RegistreServlet", value = "/hola")
+@WebServlet(name ="RegistreServlet", value = "/register")
 public class RegistreServlet extends HttpServlet {
     private final UsuarioServiceImpl usuarioService;
 
@@ -25,16 +24,15 @@ public class RegistreServlet extends HttpServlet {
         String nombre = req.getParameter("nombre");
         String username = req.getParameter("username");
         String email = req.getParameter("email");
-        Timestamp fechaNacimiento = Timestamp.valueOf((req.getParameter("fechaNacimiento")));
+        Date fechaNacimiento = Date.valueOf((req.getParameter("fechaNacimiento")));
         String password = req.getParameter("password");
         String confirmPassword = req.getParameter("confirmPassword");
 
         UsuarioCreateDto usuario = new UsuarioCreateDto(nombre, username, email, fechaNacimiento, password, -1);
         if (usuarioService.registarUsuario(usuario, confirmPassword)) {
-            resp.sendRedirect("index.jsp");
+            resp.sendRedirect("login.jsp");
         } else {
             resp.sendRedirect("index.jsp?error=1");
         }
-
     }
 }

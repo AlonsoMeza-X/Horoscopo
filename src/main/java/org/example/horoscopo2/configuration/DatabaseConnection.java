@@ -19,7 +19,7 @@ public class DatabaseConnection {
             Class.forName(DRIVER);
             this.connection = DriverManager.getConnection(URL, USER, PASSWORD);
         } catch (ClassNotFoundException | SQLException e) {
-            throw new RuntimeException("Error inicializacion con la base de datos");
+            throw new RuntimeException("Error inicializacion con la base de datos", e);
         }
     }
 

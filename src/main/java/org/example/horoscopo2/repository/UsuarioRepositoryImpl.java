@@ -21,13 +21,14 @@ public class UsuarioRepositoryImpl implements UsuarioRepository {
 
     @Override
     public boolean save(Usuario usuario) {
-        String query = "INSERT INSERT INTO usuarios (id, nombre, username, email, fechaNacimiento, password, animal) VALUES (?, ?, ?, ?, ?, ?, ?)";
-        try (Connection connection = databaseConnection.getConnection(); PreparedStatement stmt = connection.prepareStatement(query)) {
+        String query = "INSERT INTO usuarios (id, nombre, username, email, fecha_nacimiento, password, animal) VALUES (?, ?, ?, ?, ?, ?, ?)";
+        try (Connection connection = databaseConnection.getConnection();
+             PreparedStatement stmt = connection.prepareStatement(query)) {
             stmt.setInt(1, usuario.getId());
             stmt.setString(2, usuario.getNombre());
             stmt.setString(3, usuario.getUsername());
             stmt.setString(4, usuario.getEmail());
-            stmt.setTimestamp(5, usuario.getFechaNacimiento());
+            stmt.setDate(5, usuario.getFechaNacimiento());
             stmt.setString(6, usuario.getPassword());
             stmt.setInt(7, usuario.getAnimal());
 
@@ -40,7 +41,7 @@ public class UsuarioRepositoryImpl implements UsuarioRepository {
 
     @Override
     public Optional<Usuario> findByUsername(String username) {
-        String query = "SELECT id, nombre, email, fechaNacimiento, password, animal FROM usuarios WHERE username = ?";
+        String query = "SELECT id, nombre, username, email, fecha_nacimiento, password, animal FROM usuarios WHERE username = ?";
         try (Connection connection = databaseConnection.getConnection();
              PreparedStatement stmt = connection.prepareStatement(query)) {
 
@@ -53,7 +54,7 @@ public class UsuarioRepositoryImpl implements UsuarioRepository {
                         rs.getString("nombre"),
                         rs.getString("username"),
                         rs.getString("email"),
-                        rs.getTimestamp("fechaNacimiento"),
+                        rs.getDate("fechaNacimiento"),
                         rs.getString("password"),
                         rs.getInt("animal")
                 ));
@@ -67,7 +68,7 @@ public class UsuarioRepositoryImpl implements UsuarioRepository {
 
     @Override
     public Optional<Usuario> findByEmail(String email) {
-        String query = "SELECT id, nombre, username, email, fechaNacimiento, password animal FROM usuarios WHERE username = ?";
+        String query = "SELECT id, nombre, username, email, fecha_nacimiento, password, animal FROM usuarios WHERE email = ?";
 
         try (Connection connection = databaseConnection.getConnection();
              PreparedStatement stmt = connection.prepareStatement(query)) {
@@ -80,7 +81,7 @@ public class UsuarioRepositoryImpl implements UsuarioRepository {
                         rs.getString("nombre"),
                         rs.getString("username"),
                         rs.getString("email"),
-                        rs.getTimestamp("fechaNacimiento"),
+                        rs.getDate("fechaNacimiento"),
                         rs.getString("password"),
                         rs.getInt("animal")));
             }
@@ -93,7 +94,7 @@ public class UsuarioRepositoryImpl implements UsuarioRepository {
 
     @Override
     public List<Usuario> findAll() {
-        String query = "SELECT id, nombre, username, email, fechaNacimiento, password animal FROM usuarios WHERE username = ?";
+        String query = "SELECT id, nombre, username, email, fecha_nacimiento, password, animal FROM usuarios";
         List<Usuario> usuarios = new ArrayList<>();
 
         try (Connection connection = databaseConnection.getConnection();
@@ -104,7 +105,7 @@ public class UsuarioRepositoryImpl implements UsuarioRepository {
                         rs.getString("nombre"),
                         rs.getString("username"),
                         rs.getString("email"),
-                        rs.getTimestamp("fechaNacimiento"),
+                        rs.getDate("fechaNacimiento"),
                         rs.getString("password"),
                         rs.getInt("animal")));
             }
