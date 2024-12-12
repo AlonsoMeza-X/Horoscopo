@@ -11,6 +11,14 @@ public class UsuarioCreateDto {
     private String password;
     private String animal;
 
+    public UsuarioCreateDto(int id, String nombre, String username, String email, String password) {
+        this.id = id;
+        this.nombre = nombre;
+        this.username = username;
+        this.email = email;
+        this.password = password;
+    }
+
     public UsuarioCreateDto(String nombre, String username, String email, String password) {
         this.nombre = nombre;
         this.username = username;

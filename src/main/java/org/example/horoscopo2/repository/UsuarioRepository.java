@@ -13,5 +13,5 @@ public interface UsuarioRepository {
     List<Usuario> findAll();
     Optional<Usuario> findById(int id);
     public void delete(int id);
-    public void edit(Usuario usuario);
+    public boolean edit(Usuario usuario);
     }

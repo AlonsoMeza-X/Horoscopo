@@ -22,16 +22,15 @@ public class UsuarioRepositoryImpl implements UsuarioRepository {
 
     @Override
     public boolean save(Usuario usuario) {
-        String query = "INSERT INTO usuarios (id, nombre, username, email, fecha_nacimiento, password, animal) VALUES (?, ?, ?, ?, ?, ?, ?)";
+        String query = "INSERT INTO usuarios (nombre, username, email, fecha_nacimiento, password, animal) VALUES (?, ?, ?, ?, ?, ?)";
         try (Connection connection = databaseConnection.getConnection();
              PreparedStatement stmt = connection.prepareStatement(query)) {
-            stmt.setInt(1, usuario.getId());
-            stmt.setString(2, usuario.getNombre());
-            stmt.setString(3, usuario.getUsername());
-            stmt.setString(4, usuario.getEmail());
-            stmt.setDate(5, usuario.getFechaNacimiento());
-            stmt.setString(6, usuario.getPassword());
-            stmt.setString(7, usuario.getAnimal());
+            stmt.setString(1, usuario.getNombre());
+            stmt.setString(2, usuario.getUsername());
+            stmt.setString(3, usuario.getEmail());
+            stmt.setDate(4, usuario.getFechaNacimiento());
+            stmt.setString(5, usuario.getPassword());
+            stmt.setString(6, usuario.getAnimal());
 
             return stmt.executeUpdate() > 0;
         } catch (SQLException e) {
@@ -157,17 +156,19 @@ public class UsuarioRepositoryImpl implements UsuarioRepository {
     }
 
     @Override
-    public void edit(Usuario usuario) {
-        String query = "UPDATE usuarios SET nombre = ?, username = ?, email = ?, fecha_nacimiento = ?, password = ?";
+    public boolean edit(Usuario usuario) {
+        String query = "UPDATE usuarios SET nombre = ?, username = ?, email = ?, password = ? WHERE id = ?";
         try (Connection connection = DatabaseConnection.getInstance().getConnection();
              PreparedStatement pstm = connection.prepareStatement(query)
         ) {
+
             pstm.setString(1, usuario.getNombre());
             pstm.setString(2, usuario.getUsername());
             pstm.setString(3, usuario.getEmail());
-            pstm.setDate(4, usuario.getFechaNacimiento());
-            pstm.setString(5, usuario.getPassword());
-            pstm.executeUpdate();
+            pstm.setString(4, usuario.getPassword());
+            pstm.setInt(5, usuario.getId());
+
+            return pstm.executeUpdate() > 0;
 
         } catch (SQLException e) {
             throw new RuntimeException("No es posible editar usuario", e);

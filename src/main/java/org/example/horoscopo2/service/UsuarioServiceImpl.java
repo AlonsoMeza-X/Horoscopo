@@ -3,6 +3,7 @@ package org.example.horoscopo2.service;
 import org.example.horoscopo2.dto.UsuarioCreateDto;
 import org.example.horoscopo2.dto.UsuarioResponseDto;
 import org.example.horoscopo2.mapper.UsaurioMapper;
+import org.example.horoscopo2.model.Usuario;
 import org.example.horoscopo2.repository.HoroscopoRepositoryImpl;
 import org.example.horoscopo2.repository.UsuarioRepository;
 import org.example.horoscopo2.repository.UsuarioRepositoryImpl;
@@ -27,6 +28,7 @@ public class UsuarioServiceImpl implements UsuarioService {
             System.out.println("Datos invalidos");
             return false;
         }
+        System.out.println(usuario);
 
         try {
             queAnimal(usuario);
@@ -122,7 +124,23 @@ public class UsuarioServiceImpl implements UsuarioService {
     }
 
     @Override
-    public void update(UsuarioCreateDto usuario) {
-        usuarioRepository.findById(usuario.getId());
+    public boolean update(UsuarioCreateDto usuario, String confirmPassword) {
+
+
+        Optional<Usuario> usuarioEncontrado = usuarioRepository.findById(usuario.getId());
+        if(usuarioEncontrado.isPresent()) {
+
+            System.out.println(usuarioEncontrado);
+            Usuario usuario1 = usuarioEncontrado.get();
+            usuario1.setUsername(usuario.getUsername());
+            usuario1.setNombre(usuario.getNombre());
+            usuario1.setEmail(usuario.getEmail());
+            usuario1.setPassword(usuario.getPassword());
+            System.out.println(usuario1);
+            return usuarioRepository.edit(usuario1);
+        } else {
+            throw new RuntimeException("Usuario no encontrado");
+        }
+
     }
 }

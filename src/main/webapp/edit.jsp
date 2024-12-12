@@ -17,13 +17,16 @@
         if (usuario != null) {
     %>
     <form action="${pageContext.request.contextPath}/edit" method="post">
+        <input type="hidden" name="id" value="<%= usuario.getId() %>">
         <div class="mb-3">
             <label for="nombre" class="form-label">Username</label>
-            <input type="text" class="form-control" id="username" name="username" value="<%= usuario.getUsername() %>" required>
+            <input type="text" class="form-control" id="username" name="username" value="<%= usuario.getUsername() %>"
+                   required>
         </div>
         <div class="mb-3">
             <label for="nombre" class="form-label">Nombre</label>
-            <input type="text" class="form-control" id="nombre" name="nombre" value="<%= usuario.getNombre() %>" required>
+            <input type="text" class="form-control" id="nombre" name="nombre" value="<%= usuario.getNombre() %>"
+                   required>
         </div>
         <div class="mb-3">
             <label for="email" class="form-label">Correo Electrónico</label>

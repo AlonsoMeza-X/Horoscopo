@@ -46,16 +46,19 @@ public class EditUsuarioServlet extends HttpServlet {
     }
 
 
+
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        int id = Integer.parseInt(req.getParameter("id"));
         String nombre = req.getParameter("nombre");
         String username = req.getParameter("username");
         String email = req.getParameter("email");
         String password = req.getParameter("password");
         String confirmPassword = req.getParameter("confirmPassword");
 
-        UsuarioCreateDto usuario = new UsuarioCreateDto(nombre, username, email, password);
-        if (usuarioService.registarUsuario(usuario, confirmPassword)) {
+        UsuarioCreateDto usuario = new UsuarioCreateDto(id, nombre, username, email, password);
+        System.out.println(usuario);
+        if (usuarioService.update(usuario, confirmPassword)) {
             resp.sendRedirect("login.jsp");
         } else {
             resp.sendRedirect("edit.jsp?error=1");
