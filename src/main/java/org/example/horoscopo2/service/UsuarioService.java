@@ -11,4 +11,5 @@ boolean registarUsuario(UsuarioCreateDto usuario, String confirmPassword);
 boolean autentificarUsuario(String username, String password);
 Optional<UsuarioResponseDto> findUsuarioByUsername(String username);
 List<UsuarioResponseDto> findAll();
+public void eliminarUsuario(int id);
 }

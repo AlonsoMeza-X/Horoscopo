@@ -9,18 +9,17 @@ public class UsuarioCreateDto {
     private String email;
     private Date fechaNacimiento;
     private String password;
-    private int animal;
+    private String animal;
 
-    public UsuarioCreateDto(String nombre, String username, String email, Date fechaNacimiento, String password, int animal) {
+    public UsuarioCreateDto(String nombre, String username, String email, Date fechaNacimiento, String password) {
         this.nombre = nombre;
         this.username = username;
         this.email = email;
         this.fechaNacimiento = fechaNacimiento;
         this.password = password;
-        this.animal = animal;
     }
 
-    public UsuarioCreateDto(int id, String nombre, String username, String email, Date fechaNacimiento, String password, int animal) {
+    public UsuarioCreateDto(int id, String nombre, String username, String email, Date fechaNacimiento, String password, String animal) {
         this.id = id;
         this.nombre = nombre;
         this.username = username;
@@ -78,11 +77,11 @@ public class UsuarioCreateDto {
         this.password = password;
     }
 
-    public int getAnimal() {
+    public String getAnimal() {
         return animal;
     }
 
-    public void setAnimal(int animal) {
+    public void setAnimal(String animal) {
         this.animal = animal;
     }
 

@@ -8,6 +8,7 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 
 public class HoroscopoRepositoryImpl implements HoroscopoRepository {
@@ -17,54 +18,22 @@ public class HoroscopoRepositoryImpl implements HoroscopoRepository {
         this.databaseConnection = DatabaseConnection.getInstance();
     }
 
-
     @Override
-    public List<Horoscopo> findAllAnimal() {
-        String query = "SELECT DISTINCT animal FROM horoscopo ORDER BY animal";
-        List<Horoscopo> horoscopos = new ArrayList<>();
-
-        try (Connection connection = databaseConnection.getConnection();
-             PreparedStatement stmt = connection.prepareStatement(query);
-             ResultSet rs = stmt.executeQuery()) {
-
-            while (rs.next()) {
-                horoscopos.add(
-                        new Horoscopo(
-                                rs.getString("animal"),
-                                null,
-                                null)
-                );
-            }
-            return horoscopos;
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return new ArrayList<>();
-    }
-
-        @Override
-    public int findAnimalByDate(Date fechaNacimiento) {
-        String query = "SELECT id FROM horoscopo WHERE ? BETWEEN fecha_inicio AND fecha_fin";
+    public String getAnimalByFechaDeNacimiento(Date fecha) {
+        String query = "SELECT animal FROM horoscopo WHERE ? BETWEEN fecha_inicio AND fecha_fin";
         try (Connection connection = databaseConnection.getConnection();
              PreparedStatement stmt = connection.prepareStatement(query)) {
+            stmt.setDate(1, (java.sql.Date) fecha);
+            ResultSet rs = stmt.executeQuery();
 
-            if (fechaNacimiento == null) {
-                throw new IllegalArgumentException("La fecha de nacimiento no puede ser nula");
-            }
-
-            stmt.setDate(1, java.sql.Date.valueOf(String.valueOf(fechaNacimiento)));
-
-            try (ResultSet rs = stmt.executeQuery()) {
-                if (rs.next()) {
-                    return rs.getInt("id");
-                }
+            if (rs.next()) {
+                return rs.getString("animal");
             }
 
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
-        System.out.println("Error: No se encontró un rango de fechas para el horóscopo");
-        throw new IllegalStateException("No se encontró un rango de fechas válido para el horóscopo");
+        return null;
     }
+
 }

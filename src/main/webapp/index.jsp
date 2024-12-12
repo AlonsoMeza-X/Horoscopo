@@ -23,7 +23,7 @@
                         Error en el registro. Por favor, intente nuevamente.
                     </div>
                     <% } %>
-
+                    <!-- form, espera un doPost-->
                     <form action="register" method="post">
                         <div class="mb-3">
                             <label for="nombre" class="form-label">Nombre</label>

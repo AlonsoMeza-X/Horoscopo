@@ -6,7 +6,9 @@ import java.util.Date;
 import java.util.List;
 
 public interface HoroscopoRepository {
-    List<Horoscopo> findAllAnimal();
+ String getAnimalByFechaDeNacimiento(Date Fecha);
 
-    int findAnimalByDate(Date fechaNacimiento);
+    //    List<Horoscopo> findAllAnimal();
+//
+//    int findAnimalByDate(Date fechaNacimiento);
 }

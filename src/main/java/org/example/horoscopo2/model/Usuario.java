@@ -9,12 +9,12 @@ public class Usuario {
     private String email;
     private Date fechaNacimiento;
     private String password;
-    private int animal;
+    private String animal;
 
     public Usuario() {
     }
 
-    public Usuario(int id, String nombre, String username, String email, Date fechaNacimiento, String password, int animal) {
+    public Usuario(int id, String nombre, String username, String email, Date fechaNacimiento, String password, String animal) {
         this.id = id;
         this.nombre = nombre;
         this.username = username;
@@ -72,11 +72,11 @@ public class Usuario {
         this.password = password;
     }
 
-    public int getAnimal() {
+    public String getAnimal() {
         return animal;
     }
 
-    public void setAnimal(int animal) {
+    public void setAnimal(String animal) {
         this.animal = animal;
     }
 

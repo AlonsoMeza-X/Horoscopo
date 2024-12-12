@@ -14,11 +14,11 @@ import java.util.stream.Collectors;
 
 public class UsuarioServiceImpl implements UsuarioService {
     private final UsuarioRepository usuarioRepository;
-//    private final HoroscopoRepositoryImpl horoscopoRepository;
+    private final HoroscopoRepositoryImpl horoscopoRepository;
 
     public UsuarioServiceImpl() {
         this.usuarioRepository = new UsuarioRepositoryImpl();
-//        this.horoscopoRepository = new HoroscopoRepositoryImpl();
+        this.horoscopoRepository = new HoroscopoRepositoryImpl();
     }
 
     @Override
@@ -46,7 +46,7 @@ public class UsuarioServiceImpl implements UsuarioService {
         }
 
         return usuarioRepository.save(UsaurioMapper.toEntity(usuario));
-
+        //Retorna un dinosaurio
     }
 
     @Override
@@ -111,25 +111,13 @@ public class UsuarioServiceImpl implements UsuarioService {
     }
 
     public void queAnimal(UsuarioCreateDto usuario) {
-        int animal = usuario.getFechaNacimiento().getYear() % 12;
 
-        usuario.setAnimal(animal);
-//        Date tiempoAnimal = usuario.getFechaNacimiento();
-//
-//        if (tiempoAnimal == null){
-//            throw new IllegalArgumentException("la fecha de nacimiento no puede ser nula");
-//        }
-//
-//        try{
-//            int animal = horoscopoRepository.findAnimalByDate(tiempoAnimal);
-//            usuario.setAnimal(animal);
-//        }catch (IllegalArgumentException e){
-//            System.out.println("Error al asignar animal :" + e.getMessage());
-//            throw new IllegalArgumentException("No se pudo asignar un animal al usuario");
-//        }
+        usuario.setAnimal(horoscopoRepository.getAnimalByFechaDeNacimiento(usuario.getFechaNacimiento()));
+
     }
 
-    public void actualizacion(){
-
+    @Override
+    public void eliminarUsuario(int id) {
+        usuarioRepository.delete(id);
     }
 }

@@ -2,6 +2,8 @@
 <%@ page import="java.util.List" %>
 <%@ page import="org.example.horoscopo2.dto.UsuarioResponseDto" %>
 <%@ page import="java.util.Optional" %>
+<%@ page import="org.example.horoscopo2.dto.HoroscopoRespondeDto" %>
+<%@ page import="org.example.horoscopo2.model.Usuario" %>
 <%
     if (session.getAttribute("username") == null) {
         response.sendRedirect("login");
@@ -10,7 +12,9 @@
 
     List<UsuarioResponseDto> usuarios = (List<UsuarioResponseDto>) session.getAttribute("ListaUsuarios");
     Optional<UsuarioResponseDto> usuarioActual = (Optional<UsuarioResponseDto>) session.getAttribute("usuarioActual");
+    Optional<Usuario> persona = (Optional<Usuario>) session.getAttribute("id");
 %>
+
 
 <!DOCTYPE html>
 <html lang="es">
@@ -27,7 +31,8 @@
         <div class="col-md-8">
             <div class="card mb-4">
                 <div class="card-body">
-                    <h2 class="card-title text-center mb-4">Bienvenido, <%= usuarioActual.get().getUsername() %></h2>
+                    <h2 class="card-title text-center mb-4">Bienvenido, <%= usuarioActual.get().getUsername() %>
+                    </h2>
                     <p class="text-center">Has iniciado sesión correctamente.</p>
 
                     <!-- Información del usuario actual -->
@@ -36,9 +41,14 @@
                             Tu información
                         </div>
                         <div class="card-body">
-                            <p><strong>Username:</strong> <%= usuarioActual.get().getUsername() %></p>
-                            <p><strong>Email:</strong> <%= usuarioActual.get().getEmail() %></p>
-                            <p><strong>Nickname:</strong> <%= usuarioActual.get().getUsername() %></p>
+                            <p><strong>Username:</strong> <%= usuarioActual.get().getUsername() %>
+                            </p>
+                            <p><strong>Email:</strong> <%= usuarioActual.get().getEmail() %>
+                            </p>
+                            <p><strong>Nickname:</strong> <%= usuarioActual.get().getUsername() %>
+                            </p>
+                            <p><strong>Animal Chino:</strong> <%= usuarioActual.get().getAnimal() %>
+                            </p>
                         </div>
                     </div>
 
@@ -55,15 +65,21 @@
                                         <th>Username</th>
                                         <th>Email</th>
                                         <th>Nickname</th>
+                                        <th>Animal Chino</th>
                                     </tr>
                                     </thead>
                                     <tbody>
                                     <% if (usuarios != null && !usuarios.isEmpty()) {
                                         for (UsuarioResponseDto usuario : usuarios) { %>
                                     <tr class="<%= usuario.getUsername().equals(usuarioActual.get().getUsername()) ? "table-primary" : "" %>">
-                                        <td><%= usuario.getUsername() %></td>
-                                        <td><%= usuario.getEmail() %></td>
-                                        <td><%= usuario.getUsername() %></td>
+                                        <td><%= usuario.getUsername() %>
+                                        </td>
+                                        <td><%= usuario.getEmail() %>
+                                        </td>
+                                        <td><%= usuario.getUsername() %>
+                                        </td>
+                                        <td><%= usuario.getAnimal() %>
+                                        </td>
                                     </tr>
                                     <% }
                                     } else { %>
@@ -78,7 +94,15 @@
                     </div>
 
                     <div class="d-grid gap-2 mt-4">
+                        <!-- a = ancord, espera un doGet -->
                         <a href="logout" class="btn btn-danger">Cerrar sesión</a>
+                        <p></p>
+                        <td>
+                            <form action="${pageContext.request.contextPath}/delete" method="post" style="display: inline;">
+                                <input type="hidden" name="id" value="<%= usuarioActual.get().getId() %>">
+                                <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('¿Estás seguro de que quieres eliminar este alumno?')">Eliminar</button>
+                            </form>
+                        </td>
                     </div>
                 </div>
             </div>

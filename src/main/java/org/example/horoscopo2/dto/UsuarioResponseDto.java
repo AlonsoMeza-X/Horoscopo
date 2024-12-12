@@ -3,17 +3,26 @@ package org.example.horoscopo2.dto;
 import java.sql.Date;
 
 public class UsuarioResponseDto {
-
+    private int id;
     private String nombre;
     private String username;
     private String email;
     private Date fechaNacimiento;
-    private int animal;
+    private String animal;
 
     public UsuarioResponseDto() {
     }
 
-    public UsuarioResponseDto(String nombre, String username, String email, Date fechaNacimiento, int animal) {
+    public UsuarioResponseDto(int id, String nombre, String username, String email, Date fechaNacimiento, String animal) {
+        this.id = id;
+        this.nombre = nombre;
+        this.username = username;
+        this.email = email;
+        this.fechaNacimiento = fechaNacimiento;
+        this.animal = animal;
+    }
+
+    public UsuarioResponseDto(String nombre, String username, String email, Date fechaNacimiento, String animal) {
         this.nombre = nombre;
         this.username = username;
         this.email = email;
@@ -53,22 +62,31 @@ public class UsuarioResponseDto {
         this.fechaNacimiento = fechaNacimiento;
     }
 
-    public int getAnimal() {
+    public String getAnimal() {
         return animal;
     }
 
-    public void setAnimal(int animal) {
+    public void setAnimal(String animal) {
         this.animal = animal;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     @Override
     public String toString() {
         return "UsuarioResponseDto{" +
-                "nombre='" + nombre + '\'' +
+                "id=" + id +
+                ", nombre='" + nombre + '\'' +
                 ", username='" + username + '\'' +
                 ", email='" + email + '\'' +
                 ", fechaNacimiento=" + fechaNacimiento +
-                ", animal=" + animal +
+                ", animal='" + animal + '\'' +
                 '}';
     }
 }

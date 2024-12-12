@@ -1,5 +1,6 @@
 package org.example.horoscopo2.repository;
 
+import com.mysql.cj.Session;
 import org.example.horoscopo2.configuration.DatabaseConnection;
 import org.example.horoscopo2.model.Usuario;
 
@@ -30,7 +31,7 @@ public class UsuarioRepositoryImpl implements UsuarioRepository {
             stmt.setString(4, usuario.getEmail());
             stmt.setDate(5, usuario.getFechaNacimiento());
             stmt.setString(6, usuario.getPassword());
-            stmt.setInt(7, usuario.getAnimal());
+            stmt.setString(7, usuario.getAnimal());
 
             return stmt.executeUpdate() > 0;
         } catch (SQLException e) {
@@ -56,7 +57,7 @@ public class UsuarioRepositoryImpl implements UsuarioRepository {
                         rs.getString("email"),
                         rs.getDate("fecha_nacimiento"),
                         rs.getString("password"),
-                        rs.getInt("animal")
+                        rs.getString("animal")
                 ));
             }
             return Optional.empty();
@@ -83,7 +84,7 @@ public class UsuarioRepositoryImpl implements UsuarioRepository {
                         rs.getString("email"),
                         rs.getDate("fecha_nacimiento"),
                         rs.getString("password"),
-                        rs.getInt("animal")));
+                        rs.getString("animal")));
             }
             return Optional.empty();
         } catch (SQLException e) {
@@ -107,12 +108,69 @@ public class UsuarioRepositoryImpl implements UsuarioRepository {
                         rs.getString("email"),
                         rs.getDate("fecha_nacimiento"),
                         rs.getString("password"),
-                        rs.getInt("animal")));
+                        rs.getString("animal")));
             }
             return usuarios;
         } catch (SQLException e) {
             e.printStackTrace();
         }
         return new ArrayList<>();
+    }
+
+    @Override
+    public Optional<Usuario> findById(int id) {
+        String query = "SELECT id, nombre, username, email, fecha_nacimiento, password, animal FROM usuarios WHERE id = ?";
+        try (Connection connection = databaseConnection.getConnection();
+             PreparedStatement stmt = connection.prepareStatement(query)) {
+
+            stmt.setInt(1, id);
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                return Optional.of(new Usuario(rs.getInt("id"),
+                        rs.getString("nombre"),
+                        rs.getString("username"),
+                        rs.getString("email"),
+                        rs.getDate("fecha_nacimiento"),
+                        rs.getString("password"),
+                        rs.getString("animal")));
+            }
+            return Optional.empty();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return Optional.empty();
+        }
+    }
+
+    @Override
+    public void delete(int id) {
+        String query = "DELETE FROM usuario WHERE id = ?";
+        try (Connection connection = DatabaseConnection.getInstance().getConnection();
+             PreparedStatement pstm = connection.prepareStatement(query)
+        ) {
+            pstm.setInt(1, id);
+            pstm.executeUpdate();
+
+        } catch (SQLException e) {
+            throw new RuntimeException("No es posible eliminar usuario", e);
+        }
+    }
+
+    @Override
+    public void edit(Usuario usuario) {
+        String query = "UPDATE usuarios SET nombre = ?, username = ?, email = ?, fecha_nacimiento = ?, password = ?";
+        try (Connection connection = DatabaseConnection.getInstance().getConnection();
+             PreparedStatement pstm = connection.prepareStatement(query)
+        ) {
+            pstm.setString(1, usuario.getNombre());
+            pstm.setString(2, usuario.getUsername());
+            pstm.setString(3, usuario.getEmail());
+            pstm.setDate(4, usuario.getFechaNacimiento());
+            pstm.setString(5, usuario.getPassword());
+            pstm.executeUpdate();
+
+        } catch (SQLException e) {
+            throw new RuntimeException("No es posible editar usuario", e);
+        }
     }
 }

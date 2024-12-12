@@ -6,6 +6,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.example.horoscopo2.dto.UsuarioCreateDto;
+import org.example.horoscopo2.service.UsuarioService;
 import org.example.horoscopo2.service.UsuarioServiceImpl;
 
 import java.io.IOException;
@@ -13,7 +14,7 @@ import java.sql.Date;
 
 @WebServlet(name ="RegistreServlet", value = "/register")
 public class RegistreServlet extends HttpServlet {
-    private final UsuarioServiceImpl usuarioService;
+    private final UsuarioService usuarioService;
 
     public RegistreServlet() {
         this.usuarioService = new UsuarioServiceImpl();
@@ -28,7 +29,7 @@ public class RegistreServlet extends HttpServlet {
         String password = req.getParameter("password");
         String confirmPassword = req.getParameter("confirmPassword");
 
-        UsuarioCreateDto usuario = new UsuarioCreateDto(nombre, username, email, fechaNacimiento, password, -1);
+        UsuarioCreateDto usuario = new UsuarioCreateDto(nombre, username, email, fechaNacimiento, password);
         if (usuarioService.registarUsuario(usuario, confirmPassword)) {
             resp.sendRedirect("login.jsp");
         } else {

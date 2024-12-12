@@ -8,15 +8,16 @@ public class UsaurioMapper {
 
     public static UsuarioResponseDto tDto(Usuario usuario) {
         return new UsuarioResponseDto(
-          usuario.getNombre(),
-          usuario.getUsername(),
-          usuario.getEmail(),
-          usuario.getFechaNacimiento(),
-          usuario.getAnimal()
+                usuario.getId(),
+                usuario.getNombre(),
+                usuario.getUsername(),
+                usuario.getEmail(),
+                usuario.getFechaNacimiento(),
+                usuario.getAnimal()
         );
     }
 
-    public static Usuario toEntity(UsuarioCreateDto dto){
+    public static Usuario toEntity(UsuarioCreateDto dto) {
         return new Usuario(
                 dto.getId(),
                 dto.getNombre(),

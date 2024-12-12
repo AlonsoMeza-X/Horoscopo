@@ -1,5 +1,6 @@
 package org.example.horoscopo2.repository;
 
+import org.example.horoscopo2.dto.UsuarioCreateDto;
 import org.example.horoscopo2.model.Usuario;
 
 import java.util.List;
@@ -10,6 +11,7 @@ public interface UsuarioRepository {
     Optional<Usuario> findByUsername(String username);
     Optional<Usuario> findByEmail(String username);
     List<Usuario> findAll();
-
-
-}
+    Optional<Usuario> findById(int id);
+    public void delete(int id);
+    public void edit(Usuario usuario);
+    }
