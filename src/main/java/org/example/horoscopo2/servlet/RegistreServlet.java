@@ -20,6 +20,7 @@ public class RegistreServlet extends HttpServlet {
         this.usuarioService = new UsuarioServiceImpl();
     }
 
+
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String nombre = req.getParameter("nombre");

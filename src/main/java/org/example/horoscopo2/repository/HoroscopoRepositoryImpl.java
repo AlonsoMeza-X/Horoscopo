@@ -1,14 +1,10 @@
 package org.example.horoscopo2.repository;
 
 import org.example.horoscopo2.configuration.DatabaseConnection;
-import org.example.horoscopo2.model.Horoscopo;
-
 
 import java.sql.*;
-import java.util.ArrayList;
+
 import java.util.Date;
-import java.util.List;
-import java.util.Optional;
 
 
 public class HoroscopoRepositoryImpl implements HoroscopoRepository {

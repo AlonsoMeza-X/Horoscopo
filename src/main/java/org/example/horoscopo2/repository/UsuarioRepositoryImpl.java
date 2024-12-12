@@ -144,7 +144,7 @@ public class UsuarioRepositoryImpl implements UsuarioRepository {
 
     @Override
     public void delete(int id) {
-        String query = "DELETE FROM usuario WHERE id = ?";
+        String query = "DELETE FROM usuarios WHERE id = ?";
         try (Connection connection = DatabaseConnection.getInstance().getConnection();
              PreparedStatement pstm = connection.prepareStatement(query)
         ) {
