@@ -1,6 +1,5 @@
 package org.example.horoscopo2.repository;
 
-import com.mysql.cj.Session;
 import org.example.horoscopo2.configuration.DatabaseConnection;
 import org.example.horoscopo2.model.Usuario;
 

@@ -11,7 +11,6 @@ import org.example.horoscopo2.service.UsuarioService;
 import org.example.horoscopo2.service.UsuarioServiceImpl;
 
 import java.io.IOException;
-import java.sql.Date;
 import java.util.Optional;
 
 @WebServlet(name = "EditUsuarioServlet", value = "/edit")
